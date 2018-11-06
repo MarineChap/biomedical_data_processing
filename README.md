@@ -4,9 +4,9 @@ Objective : Clean an ECG burried under power-line, low and high frequency noises
 
 ## Bibliography :
 
-[1] M.Rangayyan Rangaraj. Biomedical Signal Analysis. IEEE Press, 2015. \\
-[2] Ramesh Rajagopalan, Adam Dahlstrom. A pole radius varying notch filter with transient suppression for electrocardiogram.\\
-[3] Yue-Der Lin, Yu Hen Hu*. Power-Line Interference Detection and Suppression in ECG Signal Processing. 2014. \\
+[1] M.Rangayyan Rangaraj. Biomedical Signal Analysis. IEEE Press, 2015. <br>
+[2] Ramesh Rajagopalan, Adam Dahlstrom. A pole radius varying notch filter with transient suppression for electrocardiogram.<br>
+[3] Yue-Der Lin, Yu Hen Hu*. Power-Line Interference Detection and Suppression in ECG Signal Processing. 2014. <br>
 
 ## Comments :
 
