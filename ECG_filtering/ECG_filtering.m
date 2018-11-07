@@ -29,12 +29,10 @@ xlabel('Frequencies (Hz)');
 ylabel('Power spectrum (dB)');
 
 %% Design of the Hanning filter 
-A_f1(1) = 4;
-B_f1(1) = 1;
-B_f1(2) = 2;
-B_f1(3) = 1;
+A_f1 = 4;
+B_f1 = [1 2 1];
 ecg_f1 = filter(B_f1,A_f1, ecg); 
-ecg_f1_fft = abs(fft(ecg_f1)).^2;
+ecg_f1_fft = abs(fft(ecg_f1.^2));
 
 [H, w] = freqz(B_f1,A_f1,fs,fs);
 
@@ -49,7 +47,6 @@ xlabel('Frequency (Hz)');
 subplot(212)
 phasez(B_f1,A_f1,fs,fs);
 title('Transfer fonction of Hanning filter')
-
 
 figure(3);
 subplot(211);
@@ -73,22 +70,17 @@ legend('ECG signal', 'ECG signal filtered');
 %% Design of the derivative-based filter
 
 % With a radius pole = 0.984
-A_f21(1) = 1;
-A_f21(2) = -0.984; 
-B_f2(1) = fs;
-B_f2(2) = -fs;
+[B_f2,A_f21] = Derivative_based_filter(0.984,fs);
 ecg_f21 = filter(B_f2,A_f21, ecg); 
 ecg_f21_fft = abs(fft(ecg_f21)).^2;
 
 % With a radius pole = 0.95
-A_f22(1) = 1;
-A_f22(2) = -0.95;
+[B_f2,A_f22] = Derivative_based_filter(0.95,fs);
 ecg_f22 = filter(B_f2,A_f22, ecg); 
 ecg_f22_fft = abs(fft(ecg_f22)).^2;
 
 % With a radius pole = 0.9
-A_f23(1) = 1;
-A_f23(2) = -0.9;
+[B_f2,A_f23] = Derivative_based_filter(0.9,fs);
 ecg_f23 = filter(B_f2,A_f23, ecg); 
 ecg_f23_fft = abs(fft(ecg_f23)).^2;
 
@@ -122,7 +114,7 @@ grid on;
 xlim([1.46 2.057]);
 xlabel('Time (sec)');
 ylabel('Amplitude (A.U)');
-legend('ECG signal', 'filter with R = 0.9','filter with R = 0.95', 'filter with R = 0.984');
+legend('ECG signal', 'filtered with R = 0.9','filtered with R = 0.95', 'filtered with R = 0.984');
 title('Effect of the Derivative-based filter');
 
 subplot(212);
@@ -132,7 +124,7 @@ grid on;
 xlabel('Frequencies (Hz)');
 ylabel('Amplitude (dB)');
 title('Power spectrum');
-legend('ECG signal', 'filter with R = 0.9','filter with R = 0.95', 'filter with R = 0.984');
+legend('ECG signal', 'filtered with R = 0.9','filtered with R = 0.95', 'filtered with R = 0.984');
 
 
 %% Design the comb filter 
@@ -140,14 +132,7 @@ legend('ECG signal', 'filter with R = 0.9','filter with R = 0.95', 'filter with 
 
 omega= 2*pi*[ 50/fs; 150/fs; 250/fs; 350/fs; 450/fs];
 
-Re = cos(omega);
-im = sin(omega);
-z = [Re + im*1i; Re - im*1i] ;
-z(end+1) = -1;
-
-[B_f3,a] = zp2tf(z,zeros(size(z)),1);
-A_f3 = sum(B_f3) ; % Gain to normalize the filter 
-
+[ B_f3,A_f3 ] = Comb_filter( omega);
 ecg_f3 = filter(B_f3,A_f3, ecg); 
 ecg_f3_fft = abs(fft(ecg_f3)).^2;
 
@@ -206,12 +191,7 @@ xlabel('Frequency (Hz)');
 title('Magnitude Response')
 
 subplot(212)
-phasez(B_combined,A_combined,fs,fs); hold on;
-
-
-cleanfigure();
-matlab2tikz('tf.tex','height','4cm' )
-
+phasez(B_combined,A_combined,fs,fs); 
 
 figure(9);
 subplot(211);
