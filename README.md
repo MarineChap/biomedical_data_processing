@@ -17,7 +17,7 @@ Study a human subject  that is watching a movie. ECG and respiration signals are
 - Filter used : <br>
   - Comb filter <br>
   
-  - Application 2: Full report (write for school) on the application is included <br>
+- Application 2: Full report (write for school) on the application is included <br>
 ECG is recorded from a human subject. Signal is contaminated with a combination of high-frequency noise, low-frequency noise (wandering base-line), and power-line frequency.<br>
 
 - Filter used : <br>
