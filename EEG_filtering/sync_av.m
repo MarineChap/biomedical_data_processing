@@ -1,6 +1,6 @@
-%% EX1.1. Removal of random noise by synchronized averaging 
+% EX1.1. Removal of random noise by synchronized averaging 
 
-%% Clear all previous results and load data
+% Clear all previous results and load data
 
 clear all % Clear variables
 close all % Close figures
@@ -21,7 +21,7 @@ ylabel('Amplitude in \muV');
 title('EEG channel - C3');
 
 
-%% Start programming your own code here!
+% Start programming your own code here!
 
 chan_PO7 = 59;
 chan_PO8 = 60;
@@ -47,7 +47,7 @@ for i = (size(S2,2)+1):size(S1,2)
    epoch_P08_UL(i,:) = segment_data(  EEGdata(chan_PO8,indice_segment), pre_stim);
 end
 
-%% Calculate the template (or mean shape) for both tasks in both channels : you should obtain 4 templates in total!
+% Calculate the template (or mean shape) for both tasks in both channels : you should obtain 4 templates in total!
 
 template_P07_UL = sum(epoch_P07_UL, 1)./size(epoch_P07_UL, 1); 
 template_P08_UL = sum(epoch_P08_UL, 1)./size(epoch_P08_UL, 1); 
@@ -55,7 +55,7 @@ template_P07_UR = sum(epoch_P07_UR, 1)./size(epoch_P07_UR, 1);
 template_P08_UR = sum(epoch_P08_UR, 1)./size(epoch_P08_UR, 1); 
 
 
-%% Calculate the overal SNR for the UL and UR tasks in both channels. Show the results in a table
+% Calculate the overal SNR for the UL and UR tasks in both channels. Show the results in a table
 
 noise_power = compute_noise_power(epoch_P07_UL, template_P07_UL);
 signal_power = compute_signal_power( noise_power, template_P07_UL, size(epoch_P07_UL,1), size(epoch_P07_UL,2) );
@@ -78,7 +78,7 @@ signal_power = compute_signal_power( noise_power, template_P08_UR, size(epoch_P0
 SNR(2,2) = signal_power/noise_power;
 D(2,2) = compute_euclidian_dist(epoch_P08_UR, template_P08_UR);
 
-%% Plot the required figures (see assignment)
+% Plot the required figures (see assignment)
 t = -0.1:1/fs:0.6;
 
 L = size(t,2);
