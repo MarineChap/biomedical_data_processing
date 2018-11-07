@@ -32,7 +32,7 @@ ylabel('Power spectrum (dB)');
 A_f1 = 4;
 B_f1 = [1 2 1];
 ecg_f1 = filter(B_f1,A_f1, ecg); 
-ecg_f1_fft = abs(fft(ecg_f1.^2));
+ecg_f1_fft = abs(fft(ecg_f1).^2);
 
 [H, w] = freqz(B_f1,A_f1,fs,fs);
 
@@ -130,9 +130,13 @@ legend('ECG signal', 'filtered with R = 0.9','filtered with R = 0.95', 'filtered
 %% Design the comb filter 
 % Noise frequence and his harmonics to remove : 50hz - 150hZ - 250hz - 350hz - 450hz
 
-omega= 2*pi*[ 50/fs; 150/fs; 250/fs; 350/fs; 450/fs];
+omega= 2*pi*[ 50; 150; 250; 350; 450]/fs;
 
-[ B_f3,A_f3 ] = Comb_filter( omega);
+[ B_f3,A_f3 ] = Comb_filter( omega, 0);
+% add a simple high pass
+B_f3 =  conv(B_f3,[1 1]);
+A_f3(1) = A_f3(1)*2;
+
 ecg_f3 = filter(B_f3,A_f3, ecg); 
 ecg_f3_fft = abs(fft(ecg_f3)).^2;
 
@@ -174,11 +178,6 @@ A_combined = conv(conv(A_f1, A_f21), A_f3);
 
 ecg_fcombined = filter(B_combined,A_combined, ecg); 
 ecg_fcombined_fft = abs(fft(ecg_fcombined)).^2;
-
-immse(ecg, ecg_f1)
-immse(ecg, ecg_f21)
-immse(ecg, ecg_f3)
-immse(ecg, ecg_fcombined)
 
 figure(8);
 subplot(211)
