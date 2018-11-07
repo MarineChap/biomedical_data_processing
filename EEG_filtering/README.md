@@ -8,6 +8,7 @@ This shape could appear in five regions on the screen: <br>
   - the center of the screen (CE). <br>
 During the session, EEG was measured so the responses of the brain related to these particular stimuli could be extracted. 
 
+## Synchronized average filter:
 1. Separate epoch : segment 100ms before the event and 600 ms after
 2. Average epoch 
 3. Compute SNR and Euclidien distance with equation from [2]
