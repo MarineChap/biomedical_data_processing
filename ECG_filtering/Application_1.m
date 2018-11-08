@@ -1,32 +1,11 @@
-%% EX1.3. Rejection of High/low/powerline interferences from ECG signals
+function ECG_filtering(ecg, fs)
 
-clear all % Clear variables
-close all % Close figures
-clc
-
-load('ecg3.mat')
-ecg = ECG23; 
-fs = 1000;
 slen = length(ecg);
 t=[1:slen]/fs;
 ecg_fft = abs(fft(ecg)).^2;
 f = fs/size(t,2)*(0:size(t,2)/2-1);
 
-figure(1) 
-subplot(211);
-plot(t, ecg);
-axis('tight');
-grid on;
-xlabel('Time (sec)');
-ylabel('Amplitude (AU)');
-title('ECG');
 
-subplot(212);
-plot(f, 20*log2(ecg_fft(1:size(t,2)/2))) ;
-axis('tight');
-grid on;
-xlabel('Frequencies (Hz)');
-ylabel('Power spectrum (dB)');
 
 %% Design of the Hanning filter 
 A_f1 = 4;
@@ -36,35 +15,7 @@ ecg_f1_fft = abs(fft(ecg_f1).^2);
 
 [H, w] = freqz(B_f1,A_f1,fs,fs);
 
-figure(2);
-subplot(211)
-plot(w, 20*log(abs(H)));
-axis('tight');
-grid on;
-ylabel('Magnitude (dB)');
-xlabel('Frequency (Hz)');
 
-subplot(212)
-phasez(B_f1,A_f1,fs,fs);
-title('Transfer fonction of Hanning filter')
-
-figure(3);
-subplot(211);
-plot(t, [ecg ecg_f1])
-axis('tight');
-grid on;
-xlabel('Time (sec)');
-ylabel('Amplitude (AU)');
-legend('ECG signal', 'ECG signal filtered');
-title('Effect of the Hanning filter');
-
-subplot(212);
-plot(f, [20*log2(ecg_fft(1:size(t,2)/2)) 20*log2(ecg_f1_fft(1:size(t,2)/2))]) ;
-axis('tight');
-grid on;
-xlabel('Frequencies (Hz)');
-ylabel('Power spectrum (dB)');
-legend('ECG signal', 'ECG signal filtered');
 
 
 %% Design of the derivative-based filter
