@@ -1,4 +1,4 @@
-function [ Rpos ] = Pan_tompkins( ecg,fs )
+function [ ecg_int,Rpos ] = Pan_tompkins( ecg,fs )
 %PAN_TOMPKINS algorithm. 
 
 % Low-pass Filter
@@ -35,12 +35,11 @@ A_int = [30 zeros(1,29)];
 ecg_int = filter(B_int,A_int,ecg_square);
 
 % Detect initial peaks
-
-pos_top = find(ecg_int>0.5*max(ecg_int));
+pos_top= find(ecg_int> 0.5*max(ecg_int));
 
 % Searchback procedure and adaptive thresholding. Correct for delays if
 % needed. Use the provided function searchback.mat provided in toledo.
-Rpos=searchback(pos_top,ecg,fs);
+Rpos=unique(searchback(pos_top,ecg,fs));
 
 
 end
