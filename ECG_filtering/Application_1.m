@@ -1,5 +1,11 @@
-function ECG_filtering(ecg, fs)
 
+clear all % Clear variables
+close all % Close figures
+clc
+
+load('ecg3.mat')
+ecg = ECG23; 
+fs = 1000;
 slen = length(ecg);
 t=[1:slen]/fs;
 ecg_fft = abs(fft(ecg)).^2;
