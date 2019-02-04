@@ -1,4 +1,4 @@
-# biomedical_data_processing (H03I2A - KU Leuven)
+# Biomedical data processing (H03I2A - KU Leuven)
 
 Objective : Apply algorithms saw in class
 
