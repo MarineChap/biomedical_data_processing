@@ -111,7 +111,12 @@ end
 %% 5) Predict the test data with the predict function
  %    using only the full signal energies
  %    using only the subband energies
- %    Note: would it make sense to combine both? Why (not)?
+
+ % Would it make sense to combine both? Why (not)? 
+ 
+ % No because we are overfitting the model. As the decomposition by using the daubechies wavelet conserve energy,
+ % the combination of the subband energy information is the same as the energy information contained in the full signal
+ 
 
 tree  = fitcdiscr(E_train', train_labels);
 pred_labels = predict(tree,  E_test');
