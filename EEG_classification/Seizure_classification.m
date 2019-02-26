@@ -99,7 +99,7 @@ subplot(4,2,1:2)
 boxplot([E_train(train_labels==0)' E_train(train_labels==1)'], [0 1], 'labels', {'No seyzure' 'Seyzure'});
 title('Full energy');
 str1 = ['Energy A5'; 'Energy D5'; 'Energy D4'; 'Energy D3'; 'Energy D2'; 'Energy D1']; 
-str2 = ['Freq range: 0- 8 Hz  '; 'Freq range: 8-16 Hz  '; 'Freq range:16-32 Hz  '; 'Freq range:32-64 Hz  '; 'Freq range:64-128 Hz ';'Freq range:128-256 Hz'];
+str2 = [ 'Freq range:0-4 Hz ';'Freq range: 4-8 Hz  '; 'Freq range: 8-16 Hz  '; 'Freq range:16-32 Hz  '; 'Freq range:32-64 Hz  ';'Freq range:64-128 Hz Hz'];
 for i = 1:size(Edc_train,2)
     subplot(4,2,i+2)
     boxplot([Edc_train(train_labels==0,i) Edc_train(train_labels==1,i)],[0 1], 'labels', {'No seizure' 'Seizure'});
